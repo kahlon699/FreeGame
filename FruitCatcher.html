@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fruit Catcher</title>
+  <script>
+// JavaScript logic
+var score = 0;
+
+
+function moveBasket(event) {
+var basket = document.getElementById("basket");
+  var xPos = event.clientX;
+  var basketPos = xPos - (basket.offsetWidth / 2);
+  basket.style.left = basketPos - 800 + "px" ;
+}
+
+function dropFruit() {
+  var fruit = document.createElement("div");
+  fruit.className = "fruit";
+  fruit.style.left = Math.random() * (window.innerWidth - 50) + "px";
+
+  var randomFruit = Math.random();
+  if (randomFruit < 0.5) {
+    fruit.style.backgroundImage = "url('apple.png')";
+    fruit.id = "apple";
+  } else {
+    fruit.style.backgroundImage = "url('banana.png')";
+    fruit.id = "banana";
+  }
+
+  document.body.appendChild(fruit);
+
+  var topPos = 0;
+  var fallSpeed = 1 + Math.random() * 3;
+
+  function update() {
+    topPos += fallSpeed;
+    fruit.style.top = topPos + "px";
+
+    if (topPos > window.innerHeight - fruit.offsetHeight) {
+      document.body.removeChild(fruit);
+      if (fruit.id === "apple") {
+        score += 10;
+      } else if (fruit.id === "banana") {
+        score += 20;
+      }
+      document.getElementById("score").textContent = "Score: " + score;
+      clearInterval(interval);
+    }
+  }
+
+  var interval = setInterval(update, 10);
+}
+
+document.addEventListener("mousemove", moveBasket);
+setInterval(dropFruit, 2000);
+
+  </script>
+  <style>
+    /* CSS styling */
+	
+	 body {
+      background-color: #f1f1f1;
+      text-align: center;
+    }
+
+    .shape {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 20px;
+      cursor: pointer;
+    }
+
+    #circle {
+      background-color: red;
+    }
+
+    #square {
+      background-color: blue;
+    }
+
+    #triangle {
+      background-color: yellow;
+    }
+
+    #score {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+	
+
+    #basket {
+      width: 80px;
+      height: 80px;
+      position: relative;
+	  top:700px;
+	 
+      margin: 0 auto;
+      background-image: url("basket.png");
+      background-size: cover;
+    }
+
+    .fruit {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+    }
+
+    #apple {
+      background-image: url("apple.png");
+      background-size: cover;
+    }
+
+    #banana {
+      background-image: url("banana.png");
+      background-size: cover;
+    }
+
+    #score {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fruit Catcher</h1>
+  <div id="basket"></div>
+  <div id="score">Score: 0</div>
+
+  
+</body>
+</html>
