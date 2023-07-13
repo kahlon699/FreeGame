@@ -1979,7 +1979,29 @@ button:active {
   background: rgb(50, 102, 213);
   outline: 0;
 }
-
+    .menu {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+    
+    .menu li {
+      float: left;
+    }
+    
+    .menu li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    .menu li a:hover {
+      background-color: #111;
+    }
 button:hover {
   box-shadow: 0 1px 3px rgba(0, 0, 0, .50);
 }
@@ -2540,7 +2562,10 @@ html[subframe] body {
 </head>
 
 <body id="t">
-	
+  <li><a href="index.html">Home</a></li>
+    <li><a href="TicTacToe.html">Tic Tac Toe</a></li>
+    <li><a href="FruitCatcher.html">Fruit Catcher</a></li>
+		  <li><a href=" DinoRun.html">Dino Run</a></li>	
 <script>
   window.fbAsyncInit = function() {
     FB.init({
