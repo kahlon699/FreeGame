@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic-Tac-Toe</title>
+    <style>
+	  /* CSS for the menu */
+   
+        #board {
+		  width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .row {
+           display: contents;
+        }
+
+        .cell {
+            width: 120px;
+            height: 120px;
+            background-color: lightgray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        #message {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tic-Tac-Toe</h1>
+    <div id="board">
+        <div class="row">
+            <div class="cell" onclick="makeMove(0, 0)"></div>
+            <div class="cell" onclick="makeMove(0, 1)"></div>
+            <div class="cell" onclick="makeMove(0, 2)"></div>
+        </div>
+        <div class="row">
+            <div class="cell" onclick="makeMove(1, 0)"></div>
+            <div class="cell" onclick="makeMove(1, 1)"></div>
+            <div class="cell" onclick="makeMove(1, 2)"></div>
+        </div>
+        <div class="row">
+            <div class="cell" onclick="makeMove(2, 0)"></div>
+            <div class="cell" onclick="makeMove(2, 1)"></div>
+            <div class="cell" onclick="makeMove(2, 2)"></div>
+        </div>
+    </div>
+    <div id="message"></div>
+    <button onclick="resetBoard()">Reset</button>
+    <script>
+            var board = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+        ];
+        var currentPlayer = "X";
+        var isGameOver = false;
+
+        function makeMove(row, col) {
+            if (!isGameOver && board[row][col] === "") {
+                board[row][col] = currentPlayer;
+                document.getElementById("board").children[row].children[col].innerHTML = currentPlayer;
+                checkGameOver();
+                switchPlayer();
+            }
+        }
+
+        function checkGameOver() {
+            if (checkWin()) {
+                document.getElementById("message").innerHTML = "Player " + currentPlayer + " wins!";
+                isGameOver = true;
+            } else if (checkDraw()) {
+                document.getElementById("message").innerHTML = "It's a draw!";
+                isGameOver = true;
+            }
+        }
+
+        function checkWin() {
+            // Check rows
+            for (var i = 0; i < 3; i++) {
+                if (board[i][0] === currentPlayer && board[i][1] === currentPlayer && board[i][2] === currentPlayer) {
+                    return true;
+                }
+            }
+
+            // Check columns
+            for (var j = 0; j < 3; j++) {
+                if (board[0][j] === currentPlayer && board[1][j] === currentPlayer && board[2][j] === currentPlayer) {
+                    return true;
+                }
+            }
+
+            // Check diagonals
+            if (board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) {
+                return true;
+            }
+
+            if (board[2][0] === currentPlayer && board[1][1] === currentPlayer && board[0][2] === currentPlayer) {
+                return true;
+            }
+
+            return false;
+        }
+
+        function checkDraw() {
+            for (var i = 0; i < 3; i++) {
+                for (var j = 0; j < 3; j++) {
+                    if (board[i][j] === "") {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function switchPlayer() {
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+        }
+
+        function resetBoard() {
+            // Clear the board
+            for (var i = 0; i < 3; i++) {
+                for (var j = 0; j < 3; j++) {
+                    board[i][j] = "";
+                    document.getElementById("board").children[i].children[j].innerHTML = "";
+                }
+            }
+
+            // Reset game state
+            currentPlayer = "X";
+            isGameOver = false;
+            document.getElementById("message").innerHTML = "";
+        }
+    </script>
+   
+</body>
+</html>
